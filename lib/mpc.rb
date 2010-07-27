@@ -64,13 +64,14 @@ class Mpc
   end
   
   def setvol(volume)
-    unless (0..100).include?(volume)
-      raise Exception("Volume should be between 0 (minimum) and 100 (maximum)")
+    begin
+      unless (0..100).include?(volume)
+        raise Exception.new("Volume should be between 0 (minimum) and 100 (maximum)")
+      end
+      puts("setvol #{volume}")
     end
-    puts("setvol #{volume}")
   end
- 
- 
+
  def listall
   puts('listall')
  end

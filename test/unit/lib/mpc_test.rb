@@ -51,4 +51,15 @@ class MpcTest < Test::Unit::TestCase
     @mpc.expects(:puts).with('repeat 0')
     @mpc.repeat(0)
   end
+
+  test "setvol with volume in propper range should not raise exception" do
+    @mpc.expects(:puts).with('setvol 100')
+    @mpc.setvol(100)
+  end
+
+  test "setvol with volume out of range should raise exception" do
+    assert_raise(Mpc::Exception) do
+      @mpc.setvol(200)
+    end
+  end
 end
