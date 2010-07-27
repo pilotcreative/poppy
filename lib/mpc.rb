@@ -7,6 +7,7 @@ class Mpc
   def initialize(host = '127.0.0.1',port = 6600)
     @socket = TCPSocket.new(host,port)
     gets
+    @socket.gets
   end
   
   def play(song = nil)
