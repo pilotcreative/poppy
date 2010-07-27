@@ -49,12 +49,18 @@ class Mpc
     status_hash[:random] == '1'
   end
 
-  #not implemented yet
-  def repeat
+  def repeat(state=nil)
+    if state.nil?
+      repeat? ? repeat_state = 0 : repeat_state = 1
+    else
+      repeat_state = state
+    end
+    puts("repeat #{repeat_state}")
   end
   
-  #not implemented yet
   def repeat?
+    status_hash = status
+    status_hash[:repeat] == '1'
   end
   
   def setvol(volume)

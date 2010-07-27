@@ -39,4 +39,16 @@ class MpcTest < Test::Unit::TestCase
     @mpc.expects(:puts).with('random 0')
     @mpc.random(0)
   end
+
+  test "repeat without state should send request with opposite value" do
+    @mpc.stubs(:status).returns({:songid=>"17", :state=>"stop", :single=>"0", :volume=>"-1", :nextsong=>"18", :consume=>"0", :nextsongid=>"18", :playlist=>"43", :repeat=>"0", :song=>"17", :playlistlength=>"41", :random=>"0", :xfade=>"0"})
+    @mpc.expects(:puts).with('repeat 1')
+    @mpc.repeat
+  end
+
+  test "repeat with state should send request with given value" do
+    @mpc.stubs(:status).returns({:songid=>"17", :state=>"stop", :single=>"0", :volume=>"-1", :nextsong=>"18", :consume=>"0", :nextsongid=>"18", :playlist=>"43", :repeat=>"0", :song=>"17", :playlistlength=>"41", :random=>"0", :xfade=>"0"})
+    @mpc.expects(:puts).with('repeat 0')
+    @mpc.repeat(0)
+  end
 end
