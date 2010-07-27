@@ -68,7 +68,7 @@ class Mpc
       unless (0..100).include?(volume)
         raise Exception.new("Volume should be between 0 (minimum) and 100 (maximum)")
       end
-      puts("setvol #{volume}")
+      puts("setvol #{volume.to_s}")
     end
   end
 
