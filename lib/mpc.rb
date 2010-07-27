@@ -15,7 +15,7 @@ class Mpc
   end
   
   def pause
-    puts('pause')
+    puts('pause 1')
   end
   
   def paused?
