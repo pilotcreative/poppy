@@ -1,92 +1,100 @@
 class Mpc
   
+  @@regexps = {
+    'ACK' => /\AACK \[(\d+)\@(\d+)\] \{(.?)\} (.+)\Z/,
+    'OK'  => /\AOK\n\Z/,
+  }
   def initialize(host = '127.0.0.1',port = 6600)
-    @random = 0
-    @pause  = 0
-    @repeat = 0
-    #begin
-    socket = TCPSocket.new(host,port)
-    @output = @socket.gets
-    #rescue 
-    ##TODO: rescue
-    #end    
-    @output
+    @socket = TCPSocket.new(host,port)
+    gets
   end
   
   def play(song = nil)
     song.nil? ? command = 'play' : command = "play #{song.to_i}"
-    send_command(command)
+    puts(command)
   end
   
   def pause
-    @pause==0 ? @pause = 1 : @pause = 0
-    send_command("pause #{@pause}")
+    puts('pause')
   end
   
-  def pause?
-    @pause==1
-  end
-  
-  def pause!
-    @pause = 0
-    self.pause
+  def paused?
+    status_hash = status
+    status_hash[:state] == 'pause'
   end
   
   def stop
-    send_command('stop')
+    puts('stop')
   end
   
   def next
-    send_command('next')
+    puts('next')
   end
   
   def previous
-    send_command('previous')
+    puts('previous')
   end
   
+  #not implemented yet
   def random
-    @random==0 ? @random = 1 : @random = 0
-    send_command("random #{@random}")
   end
   
+  #not implemented yet
   def random?
-    @random == 1
   end
-  
-  def random!
-    @random = 0
-    self.random
-  end
-  
+
+  #not implemented yet
   def repeat
-    @repeat==0 ? @repeat = 1 : @repeat = 0
-    send_command("repeat #{@repeat}")
   end
   
+  #not implemented yet
   def repeat?
-    @repeat == 1
   end
-  
-  def repeat!
-    @repeat = 0
-    self.repeat
-  end
-  
   
   def setvol(volume)
     unless (0..100).include?(volume)
-      raise "Volume should be between 0 (minimum) and 100 (maximum)"
+      raise Exception("Volume should be between 0 (minimum) and 100 (maximum)")
     end
-    send_command("setvol #{volume}")
-    @socket.gets
+    puts("setvol #{volume}")
   end
+ 
+ 
+ def listall
+  puts('listall')
+ end
  
   private
   
-  def send_command command
+  def puts(command)
     @socket.puts(command)
-    output = @socket.gets
-    
+    gets
+  end
+  
+
+  def gets
+    response = ""
+    while line = @socket.gets do
+      if @@regexps['OK'].match(line)
+        return response
+      elsif error = @@regexps['ACK'].match(line)
+        raise Exception
+      else
+        response << line
+      end
+    end
+    response
+  end
+  
+  def status
+    output = puts('status')
+    status_hash = Hash.new
+    output.each do |line| 
+      key, value = line.chomp.split(': ', 2) 
+      status_hash[key.parameterize.underscore.to_sym] = value
+    end 
+    status_hash
   end
 
+  class Exception < StandardError  
+  end
 end
