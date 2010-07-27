@@ -19,12 +19,24 @@ class MpcTest < Test::Unit::TestCase
   end
   
   test "gets outputs hash on  listall command" do
-    TCPSocket.any_instance.stubs(:gets).returns("directory: Abra Dab\n","directory: Abra Dab/Miasto Jest Nasze\n","file: Abra Dab/Miasto Jest Nasze/ABRADAB - Bezposrednio.mp3\n","OK\n")
+    @mpc.stubs(:gets).returns("directory: Abra Dab\ndirectory: Abra Dab/Miasto Jest Nasze\nfile: Abra Dab/Miasto Jest Nasze/ABRADAB - Bezposrednio.mp3\n")
     assert_equal("directory: Abra Dab\ndirectory: Abra Dab/Miasto Jest Nasze\nfile: Abra Dab/Miasto Jest Nasze/ABRADAB - Bezposrednio.mp3\n",@mpc.listall )
   end
   
   test "status outputs propper hash" do
-    TCPSocket.any_instance.stubs(:gets).returns("volume: -1\n","repeat: 0\n","random: 0\n","single: 0\n","consume: 0\n","playlist: 43\n","playlistlength: 41\n","xfade: 0\n","state: stop\n","song: 17\n","songid: 17\n","nextsong: 18\n","nextsongid: 18\n","OK\n")
+    @mpc.stubs(:gets).returns("volume: -1\nrepeat: 0\nrandom: 0\nsingle: 0\nconsume: 0\nplaylist: 43\nplaylistlength: 41\nxfade: 0\nstate: stop\nsong: 17\nsongid: 17\nnextsong: 18\nnextsongid: 18\n")
     assert_equal({:songid=>"17", :state=>"stop", :single=>"0", :volume=>"-1", :nextsong=>"18", :consume=>"0", :nextsongid=>"18", :playlist=>"43", :repeat=>"0", :song=>"17", :playlistlength=>"41", :random=>"0", :xfade=>"0"},@mpc.send(:status) )
+  end
+
+  test "random without state should send request with opposite value" do
+    @mpc.stubs(:status).returns({:songid=>"17", :state=>"stop", :single=>"0", :volume=>"-1", :nextsong=>"18", :consume=>"0", :nextsongid=>"18", :playlist=>"43", :repeat=>"0", :song=>"17", :playlistlength=>"41", :random=>"0", :xfade=>"0"})
+    @mpc.expects(:puts).with('random 1')
+    @mpc.random
+  end
+
+  test "random with state should send request with given value" do
+    @mpc.stubs(:status).returns({:songid=>"17", :state=>"stop", :single=>"0", :volume=>"-1", :nextsong=>"18", :consume=>"0", :nextsongid=>"18", :playlist=>"43", :repeat=>"0", :song=>"17", :playlistlength=>"41", :random=>"0", :xfade=>"0"})
+    @mpc.expects(:puts).with('random 0')
+    @mpc.random(0)
   end
 end

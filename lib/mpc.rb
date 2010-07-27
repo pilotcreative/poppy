@@ -35,12 +35,18 @@ class Mpc
     puts('previous')
   end
   
-  #not implemented yet
-  def random
+  def random(state=nil)
+    if state.nil?
+      random? ? random_state = 0 : random_state = 1
+    else
+      random_state = state
+    end
+    puts("random #{random_state}")
   end
   
-  #not implemented yet
   def random?
+    status_hash = status
+    status_hash[:random] == '1'
   end
 
   #not implemented yet
