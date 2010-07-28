@@ -13,11 +13,12 @@ class PlayersController < ApplicationController
 
   def previous
     @mpc.previous
-    # render :action => "change_track"
+    render :action => "change_song"
   end
 
   def next
     @mpc.next
+    render :action => "change_song"
   end
 
   def stop
