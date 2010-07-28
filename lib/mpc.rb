@@ -72,6 +72,19 @@ class Mpc
     end
   end
 
+ def volume
+   status_hash = status
+   status_hash[:volume]
+ end
+
+ def volume_up
+  setvol(volume.to_i + 20)
+ end
+
+ def volume_down
+  setvol(volume.to_i - 20)
+ end
+
  def listall
   puts('listall')
  end
