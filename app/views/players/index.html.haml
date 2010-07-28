@@ -1,0 +1,16 @@
+%h2#current_song=actual_song(@mpc.current_song)
+#buttons
+	-if @mpc.paused?
+		=link_to 'Play',play_player_path,{:class=>'button',:id=>'play_pause'}
+	-else
+		=link_to 'Pause',pause_player_path,{:class=>'button',:id=>'play_pause'}
+	=link_to 'Stop',stop_player_path,{:class=>'button',:id=>'stop'}
+	=link_to 'Previous',previous_player_path,{:class=>'button',:id=>'prev'}
+	=link_to 'Next',next_player_path,{:class=>'button',:id=>'next'}
+	=link_to 'Volume',{},{:class=>'button',:id=>'volume_toggle'}
+	#volume_container
+		100
+		#volume_slider
+		%strong 0
+	/ #song_slider
+	

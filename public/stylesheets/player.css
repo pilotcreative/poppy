@@ -1,0 +1,41 @@
+body{
+	background-color: #000;
+}
+
+h2{
+	text-align:center;
+	color: #fff;
+}
+#buttons{
+	text-align:center;
+	width:350px;
+	margin:0 auto;
+}
+.button{
+	background-color: #222222;
+	color: #aaaaaa;
+	text-decoration:none;
+	border-radius: 10px;
+	padding: 10px;
+}
+#song_slider{
+	margin-top:30px;
+}
+
+#volume_container{
+	display:none;
+	height:250px;
+	width:20px;
+	float:right;
+	margin-top:15px;
+	padding:10px 20px;
+	background-color:#222222;
+	border-radius: 10px;
+	z-index:9999;
+}
+#volume_slider{
+	height:200px;
+	width:15px;
+	float:right;
+	z-index:9999;
+}
