@@ -25,7 +25,17 @@ class PlayersController < ApplicationController
   end
   
   def volume
-    @mpc.setvol(0)
+    @mpc.setvol(params[:volume].to_i)
+    render :nothing => true
+  end
+
+  def volume_up
+    @mpc.volume_up
+    render :nothing => true
+  end
+
+  def volume_down
+    @mpc.volume_down
     render :nothing => true
   end
 
