@@ -10,7 +10,7 @@ class Mpc
   end
   
   def play(song = nil)
-    song.nil? ? command = 'play' : command = "play #{song.to_i}"
+    song.nil? ? command = 'play' : command = "play #{song.to_s}"
     puts(command)
   end
   
@@ -85,10 +85,22 @@ class Mpc
   setvol(volume.to_i - 20)
  end
 
- def listall
-  puts('listall')
+ def playlist_info
+  output = Array.new
+  song_hash = Hash.new
+  song_list = puts('playlistinfo')
+  song_list.each do |song|
+    if song.match('file')
+      output << song_hash
+      song_hash = Hash.new
+    else
+      song_hash.merge!(to_hash(song))
+    end
+  end
+  output.delete_at(0)
+  output
  end
- 
+
  def current_song
   to_hash(puts('currentsong'))
  end
