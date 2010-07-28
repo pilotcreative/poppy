@@ -85,6 +85,13 @@ class Mpc
   setvol(volume.to_i - 20)
  end
 
+ def seek(time,song=nil)
+  if song.nil?
+    song = current_song[:pos]
+  end
+  puts("seek #{song.to_s} #{time.to_s}")
+ end
+
  def playlist_info
   output = Array.new
   song_hash = Hash.new

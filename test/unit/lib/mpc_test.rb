@@ -67,4 +67,16 @@ class MpcTest < Test::Unit::TestCase
       @mpc.setvol(200)
     end
   end
+
+  test "seek without song_position seeks current song" do
+    @mpc.stubs(:current_song).returns({:date=>"2008", :track=>"4", :album=>"One Kind Favor", :genre=>"Blues", :time=>"190", :file=>"Kuba's Music/B.B. King - One Kind Favor/04. B.B. King - How Many More Years.mp3", :pos=>"3", :title=>"How Many More Years", :id=>"3", :albumartist=>"B.B. King", :artist=>"B.B. King"})
+    @mpc.expects(:puts).with('seek 3 130')
+    @mpc.seek(130)
+  end
+
+  test "seek with song_position seeks given song" do
+    @mpc.stubs(:current_song).returns({:date=>"2008", :track=>"4", :album=>"One Kind Favor", :genre=>"Blues", :time=>"190", :file=>"Kuba's Music/B.B. King - One Kind Favor/04. B.B. King - How Many More Years.mp3", :pos=>"3", :title=>"How Many More Years", :id=>"3", :albumartist=>"B.B. King", :artist=>"B.B. King"})
+    @mpc.expects(:puts).with('seek 11 20')
+    @mpc.seek(20,11)
+  end
 end
