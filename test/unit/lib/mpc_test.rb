@@ -18,9 +18,14 @@ class MpcTest < Test::Unit::TestCase
     assert_equal("",@mpc.stop )
   end
   
-  test "gets outputs hash on  listall command" do
-    @mpc.stubs(:gets).returns("directory: Abra Dab\ndirectory: Abra Dab/Miasto Jest Nasze\nfile: Abra Dab/Miasto Jest Nasze/ABRADAB - Bezposrednio.mp3\n")
-    assert_equal("directory: Abra Dab\ndirectory: Abra Dab/Miasto Jest Nasze\nfile: Abra Dab/Miasto Jest Nasze/ABRADAB - Bezposrednio.mp3\n",@mpc.listall )
+  test "gets outputs array on playlist_info command" do
+    @mpc.stubs(:gets).returns("file: iTunes/iTunes Music/Paktofonika/Kinematografia/Na Mocy Paktu.mp3\nTime: 264\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nDate: 2000\nGenre: Hip Hop\nComposer: Magik Fokus Rahim\nPos: 0\nId: 0\nfile: Paktofonika - Kinematografia/Na Mocy Paktu.mp3\nTime: 61\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nTrack: 1\nDate: 2001\nGenre: Hip-Hop\nPos: 1\nId: 1\nfile: Paktofonika/Paktofonika - Priorytety.mp3\n")
+    assert_equal([{:date=>"2000", :album=>"Kinematografia", :genre=>"Hip Hop", :time=>"264",
+       :pos=>"0", :composer=>"Magik Fokus Rahim", :title=>"Na Mocy Paktu",
+        :id=>"0", :artist=>"Paktofonika"},
+         {:date=>"2001", :track=>"1", :album=>"Kinematografia", :genre=>"Hip-Hop",
+            :time=>"61", :pos=>"1", :title=>"Na Mocy Paktu", :id=>"1",
+            :artist=>"Paktofonika"} ],@mpc.playlist_info )
   end
   
   test "status outputs propper hash" do
