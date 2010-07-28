@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('.button').click(function() {
 		$.ajax({
 		  url: $(this).attr('href'),
-		  type: "GET",
+		  type: "PUT",
 		  dataType: "script",
 		});
 		return false;
@@ -17,13 +17,9 @@ $(document).ready(function() {
 		range: "min",
 		min: 0,
 		max: 100,
-		value: 60,
+		value: $('#volume_slider').attr('alt'),
 		change: function(event, ui) {
-			$.post('/player/volume',{
-			 volume:ui},
-			 function(){
-			    alert('koniec');
-			});
+			$.get('/player/volume?volume='+ui.value);
 		}
 	});
 });

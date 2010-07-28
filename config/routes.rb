@@ -1,12 +1,14 @@
 Poppy::Application.routes.draw do |map|
   resource :player do
     member do
-      get :play
-      get :pause
-      get :stop
-      get :next
-      get :previous
-      post :volume
+      put :play
+      put :pause
+      put :stop
+      put :next
+      put :previous
+      put :volume
+      put :volume_down
+      put :volume_up
     end
   end
   # The priority is based upon order of creation:
