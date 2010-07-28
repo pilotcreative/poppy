@@ -1,0 +1,5 @@
+$('#current_song').text('<%= song_info(@ping)%>');
+$('#debug').text('Max:<%= @ping[:song_time] %> Value: <%= @ping[:time] %>');
+$('#song_slider').slider('option','min',0);
+$('#song_slider').slider('option','max',<%= @ping[:song_time]%>);
+$('#song_slider').slider('option','value',<%= @ping[:time] %>);

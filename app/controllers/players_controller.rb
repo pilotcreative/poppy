@@ -43,6 +43,10 @@ class PlayersController < ApplicationController
     render :nothing => true
   end
 
+  def ping
+    @ping = @mpc.ping
+  end
+
   private
   def connect_to_mpc
     @mpc = Mpc.new('10.0.1.2')

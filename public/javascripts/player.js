@@ -11,7 +11,11 @@ $(document).ready(function() {
 		$('#volume_container').toggle('slow');
 		return false;
 	});
-	$('#song_slider').slider();
+	$('#song_slider').slider({
+		min: 0,
+		max: $('#song_slider').attr('data-max'),
+		value: $('#song_slider').attr('data-value')
+	});
 	$("#volume_slider").slider({
 		orientation: "vertical",
 		range: "min",
@@ -22,4 +26,12 @@ $(document).ready(function() {
 			$.get('/player/volume?volume='+ui.value);
 		}
 	});
+	setInterval('ping()',1000);
 });
+function ping(){
+	$.ajax({
+	  url: '/player/ping',
+	  type: "GET",
+	  dataType: "script",
+	});
+}

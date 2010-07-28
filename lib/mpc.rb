@@ -109,6 +109,11 @@ class Mpc
    to_hash(puts('stats'))
  end
 
+ def ping
+   song = current_song
+   output = {:song_time=>song[:time],:time=>status[:time].split(':').first,:artist=>song[:artist],:title=>song[:title],:file=>song[:file],:album=>song[:album],:id=>song[:id]}
+ end
+
   private
   
   def puts(command)

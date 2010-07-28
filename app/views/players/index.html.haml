@@ -9,10 +9,15 @@
 	=link_to 'Next',next_player_path,{:class=>'button',:id=>'next',:method=>:put}
 	=link_to 'Volume Up',volume_up_player_path,{:class=>'button',:id=>'volume_up',:method=>:put}
 	=link_to 'Volume Down',volume_down_player_path,{:class=>'button',:id=>'volume_down',:method=>:put}
+	#song_slider{:'data-max'=>@mpc.ping[:song_time],:'data-value'=>@mpc.ping[:time]}
+	#debug
 #playlist
+	%h3 Current Playlist
 	-@mpc.playlist_info.each do |song|
 		%p
 			=link_to 'Play',play_player_path(:pos=>song[:pos]),{:class=>'button',:id=>'play_song',:method=>:put}
 			=song_info(song)
 			%span.hidden
 				=extended_song_info(song)
+#playlists
+	%h3 Playlists

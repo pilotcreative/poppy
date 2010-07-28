@@ -9,6 +9,7 @@ Poppy::Application.routes.draw do |map|
       put :volume
       put :volume_down
       put :volume_up
+      get :ping
     end
   end
   # The priority is based upon order of creation:
