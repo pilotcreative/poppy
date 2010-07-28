@@ -1,0 +1,9 @@
+!!!
+%html
+	%head
+		%title Poppy
+		=stylesheet_link_tag 'player','smoothness/jquery-ui.css'
+		=javascript_include_tag 'jquery','jquery-ui','player'
+		=csrf_meta_tag
+	%body
+		=yield
