@@ -1,4 +1,5 @@
 %h2#current_song=current_song(@mpc.current_song)
+%h2#current_song=song_info(@mpc.current_song)
 #buttons
 	-if @mpc.paused?
 		=link_to 'Play',play_player_path,{:class=>'button',:id=>'play_pause',:method=>:put}

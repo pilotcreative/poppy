@@ -1,5 +1,5 @@
 module PlayersHelper
-  def actual_song(song)
+  def song_info(song)
     if song[:title].blank? || song[:artist].blank?
       song[:file]
     else
