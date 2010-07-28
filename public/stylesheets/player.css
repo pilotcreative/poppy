@@ -40,3 +40,12 @@ h2{
 	float:right;
 	z-index:9999;
 }
+#playlist p{
+	padding: 5px;
+}
+span.hidden{
+	color:#000;
+}
+#playlist p:hover span.hidden{
+	color: #ccc;
+}
