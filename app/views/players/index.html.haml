@@ -1,4 +1,3 @@
-%h2#current_song=current_song(@mpc.current_song)
 %h2#current_song=song_info(@mpc.current_song)
 #buttons
 	-if @mpc.paused?
@@ -8,11 +7,8 @@
 	=link_to 'Stop',stop_player_path,{:class=>'button',:id=>'stop',:method=>:put}
 	=link_to 'Previous',previous_player_path,{:class=>'button',:id=>'prev',:method=>:put}
 	=link_to 'Next',next_player_path,{:class=>'button',:id=>'next',:method=>:put}
-	/ %a{:class=>'button',:id=>'volume_toggle'} Volume
-	/ 	#volume_container
-	/ 		100
-	/ 		#volume_slider{:alt=>@mpc.volume}
-	/ 		%strong 0
-	/ 	/ #song_slider
-	=link_to 'Volume Up',volume_up_player_path,{:class=>'button',:id=>'volume_up',:method=>:put}
-	=link_to 'Volume Down',volume_down_player_path,{:class=>'button',:id=>'volume_down',:method=>:put}
+#playlist
+	-@mpc.playlist_info.each do |song|
+		%p
+			=link_to 'Play',play_player_path(:pos=>song[:pos]),{:class=>'button',:id=>'play_song',:method=>:put}
+			=song_info(song)

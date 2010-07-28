@@ -4,7 +4,10 @@ class PlayersController < ApplicationController
   end
 
   def play
-    @mpc.play
+    @mpc.play(params[:pos])
+    if params[:pos]
+      render :action => "change_song"
+    end
   end
 
   def pause
