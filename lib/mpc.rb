@@ -76,6 +76,14 @@ class Mpc
   puts('listall')
  end
  
+ def current_song
+  to_hash(puts('currentsong'))
+ end
+
+ def stats
+   to_hash(puts('stats'))
+ end
+
   private
   
   def puts(command)
@@ -100,8 +108,12 @@ class Mpc
   
   def status
     output = puts('status')
+    to_hash(output)
+  end
+
+  def to_hash(string)
     status_hash = Hash.new
-    output.each do |line| 
+    string.each do |line|
       key, value = line.chomp.split(': ', 2) 
       status_hash[key.parameterize.underscore.to_sym] = value
     end 
