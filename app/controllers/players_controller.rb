@@ -46,6 +46,10 @@ class PlayersController < ApplicationController
   def ping
     @ping = @mpc.ping
   end
+  
+  def seek
+    @mpc.seek(params[:time].to_i,params[:song])
+  end
 
   private
   def connect_to_mpc

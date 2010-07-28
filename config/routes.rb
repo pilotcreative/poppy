@@ -9,6 +9,7 @@ Poppy::Application.routes.draw do |map|
       put :volume
       put :volume_down
       put :volume_up
+      put :seek
       get :ping
     end
   end
