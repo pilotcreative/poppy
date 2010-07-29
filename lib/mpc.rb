@@ -93,19 +93,11 @@ class Mpc
  end
 
  def playlist_info
-  output = Array.new
-  song_hash = Hash.new
-  song_list = puts('playlistinfo')
-  song_list.each do |song|
-    if song.match('file')
-      output << song_hash
-      song_hash = Hash.new
-    else
-      song_hash.merge!(to_hash(song))
-    end
-  end
-  output.delete_at(0)
-  output
+  parse_song_list(puts('playlistinfo'))
+ end
+
+ def listall
+  parse_song_list(puts('listallinfo'))
  end
 
  def current_song
@@ -160,6 +152,22 @@ class Mpc
     end 
     status_hash
   end
+
+  def parse_song_list(song_list)
+    output = Array.new
+    song_hash = Hash.new
+    song_list.each do |song|
+      if song.match('file')
+        output << song_hash
+        song_hash = Hash.new
+      # elsif !song.match('directory')
+      end
+      song_hash.merge!(to_hash(song))
+    end
+    output << song_hash
+    output.delete_at(0)
+    output
+   end
 
   class Exception < StandardError  
   end
