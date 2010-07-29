@@ -79,4 +79,22 @@ class MpcTest < Test::Unit::TestCase
     @mpc.expects(:puts).with('seek 11 20')
     @mpc.seek(20,11)
   end
+
+  test "find with wrong type should raise exception" do
+    assert_raise(Mpc::Exception) do
+      @mpc.find('wrong_type')
+    end
+  end
+
+  test "find with correct type but with empty string should raise exception" do
+    assert_raise(Mpc::Exception) do
+      @mpc.find('artist',"")
+    end
+  end
+
+  test "find with correct type and with string should return hash with songs" do
+    assert_nothing_raised do
+      @mpc.find('artist','paktofo')
+    end
+  end
 end

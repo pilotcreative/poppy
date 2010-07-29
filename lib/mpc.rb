@@ -92,6 +92,17 @@ class Mpc
   puts("seek #{song.to_s} #{time.to_s}")
  end
 
+ def find(type,what="")
+  unless type.match(/\A(title|artist|album|filename)\Z/)
+    raise Exception.new("Wrong type: #{type}")
+  end
+  if what==""
+    raise Exception.new("'What' can't be an empty string")
+  end
+  parse_song_list(puts("search #{type} #{what}"))
+
+ end
+
  def playlist_info
   parse_song_list(puts('playlistinfo'))
  end
