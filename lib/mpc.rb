@@ -1,7 +1,7 @@
 class Mpc
   
   @@regexps = {
-    'ACK' => /\AACK \[(\d+)\@(\d+)\] \{(.?)\} (.+)\Z/,
+    'ACK' => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
     'OK'  => /\AOK\n\Z/,
   }
   def initialize(host = '127.0.0.1',port = 6600)
