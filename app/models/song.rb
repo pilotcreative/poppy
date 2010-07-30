@@ -8,7 +8,7 @@ class Song
 
   define_attribute_methods [:title, :file]
 
-  def initialize(player = Player.instance, attributes={})
+  def initialize(attributes, player = Player.instance)
     @player = player.mpc
     @attributes = attributes.with_indifferent_access
   end
