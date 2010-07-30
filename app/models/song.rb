@@ -8,13 +8,13 @@ class Song
 
   define_attribute_methods [:title, :file]
 
-  def initialize(player = Player.instance,attributes={})
+  def initialize(player = Player.instance, attributes={})
     @player = player.mpc
     @attributes = attributes.with_indifferent_access
   end
 
-  def find(type,what="")
-    @player.find(type,what)
+  def find(type, what="")
+    @player.find(type, what)
   end
 
   def all
@@ -24,6 +24,8 @@ class Song
   def current
     @player.current_song
   end
+
+  protected
 
   def attributes(name)
     @attributes[name]
