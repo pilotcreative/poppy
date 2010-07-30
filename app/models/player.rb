@@ -1,7 +1,7 @@
 class Player
   extend ActiveModel::Naming
 
-  delegate :stop, :start, :paused?, :next,:previous,:current_song,:listall, :to => :mpc
+  delegate :stop, :start, :pause, :paused?, :next,:previous,:current_song,:listall,:ping, :to => :mpc
   attr_reader :mpc
 
   def initialize(host='localhost',port=6600)
