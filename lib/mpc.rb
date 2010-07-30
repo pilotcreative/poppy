@@ -134,6 +134,10 @@ class Mpc
  def listplaylistinfo(name)
    parse_song_list(puts("listplaylistinfo #{name}"))
  end
+
+ def add(name, uri)
+  puts("playlistadd \"#{name}\" \"#{uri}\"")
+ end
   private
 
   def puts(command)

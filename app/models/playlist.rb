@@ -14,4 +14,7 @@ class Playlist
     Player.instance.listplaylistinfo(@name)
   end
 
+  def add(song)
+    Player.instance.add(@name,song.file)
+  end
 end
