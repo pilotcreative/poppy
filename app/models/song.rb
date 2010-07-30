@@ -12,8 +12,24 @@ class Song
     @attributes = attributes.with_indifferent_access
   end
 
-  def find(type, what="")
-    @player.find(type, what)
+  def self.find(type, what = "")
+    Player.instance.find(type, what)
+  end
+
+  def self.find_by_artist(what)
+    self.find('artist', what)
+  end
+
+  def self.find_by_title(what)
+    self.find('artist', what)
+  end
+
+  def self.find_by_album(what)
+    self.find('album',what)
+  end
+
+  def self.find_by_file(what)
+    self.find('filename',what)
   end
 
   def self.all
