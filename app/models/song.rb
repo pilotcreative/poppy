@@ -6,7 +6,7 @@ class Song
   attribute_method_suffix ""
   attribute_method_suffix "="
 
-  define_attribute_methods [:title, :file]
+  define_attribute_methods [:artist, :title, :time, :date, :album, :genre, :file]
 
   def initialize(attributes, player = Player.instance)
     @player = player.mpc
@@ -27,11 +27,11 @@ class Song
 
   protected
 
-  def attributes(name)
+  def attribute(name)
     @attributes[name]
   end
 
-  def attributes=(name, value)
+  def attribute=(name, value)
     @attributes[name] = value
   end
 end
