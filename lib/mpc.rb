@@ -1,41 +1,41 @@
 class Mpc
-  
+
   @@regexps = {
     'ACK' => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
     'OK'  => /\AOK\n\Z/,
   }
-  def initialize(host = '127.0.0.1',port = 6600)
+  def initialize(host = '127.0.0.1', port = 6600)
     @socket = TCPSocket.new(host,port)
     @socket.gets
   end
-  
+
   def play(song = nil)
     song.nil? ? command = 'play' : command = "play #{song.to_s}"
     puts(command)
   end
-  
+
   def pause
     puts('pause 1')
   end
-  
+
   def paused?
     status_hash = status
     status_hash[:state] == 'pause'
   end
-  
+
   def stop
     puts('stop')
   end
-  
+
   def next
     puts('next')
   end
-  
+
   def previous
     puts('previous')
   end
-  
-  def random(state=nil)
+
+  def random(state = nil)
     if state.nil?
       random? ? random_state = 0 : random_state = 1
     else
@@ -43,13 +43,13 @@ class Mpc
     end
     puts("random #{random_state}")
   end
-  
+
   def random?
     status_hash = status
     status_hash[:random] == '1'
   end
 
-  def repeat(state=nil)
+  def repeat(state = nil)
     if state.nil?
       repeat? ? repeat_state = 0 : repeat_state = 1
     else
@@ -57,12 +57,12 @@ class Mpc
     end
     puts("repeat #{repeat_state}")
   end
-  
+
   def repeat?
     status_hash = status
     status_hash[:repeat] == '1'
   end
-  
+
   def setvol(volume)
     begin
       unless (0..100).include?(volume)
@@ -85,22 +85,21 @@ class Mpc
   setvol(volume.to_i - 20)
  end
 
- def seek(time,song=nil)
+ def seek(time, song = nil)
   if song.nil?
     song = current_song[:pos]
   end
   puts("seek #{song.to_s} #{time.to_s}")
  end
 
- def find(type,what="")
+ def find(type, what = "")
   unless type.match(/\A(title|artist|album|filename)\Z/)
     raise Exception.new("Wrong type: #{type}")
   end
-  if what==""
+  if what == ""
     raise Exception.new("'What' can't be an empty string")
   end
   parse_song_list(puts("search #{type} #{what}"))
-
  end
 
  def playlist_info
@@ -129,12 +128,11 @@ class Mpc
  end
 
   private
-  
+
   def puts(command)
     @socket.puts(command)
     gets
   end
-  
 
   def gets
     response = ""
@@ -149,7 +147,7 @@ class Mpc
     end
     response
   end
-  
+
   def status
     output = puts('status')
     to_hash(output)

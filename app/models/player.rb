@@ -1,10 +1,10 @@
 class Player
   extend ActiveModel::Naming
-  delegate :stop, :start, :pause, :paused?, :next,:previous,:current_song,:ping, :to => :mpc
+  delegate :stop, :start, :pause, :paused?, :next, :previous, :current_song, :ping, :to => :mpc
   attr_reader :mpc
   @@instance = nil
 
-  def initialize(host='localhost',port=6600)
+  def initialize(host = 'localhost', port = 6600)
     @mpc = Mpc.new(host,port)
     @@instance = self
   end
@@ -14,11 +14,11 @@ class Player
     @@instance
   end
 
-  def play(song=nil)
+  def play(song = nil)
     @mpc.play(song)
   end
 
-  def find(type,what="")
+  def find(type, what = "")
     @mpc.find(type,what).map{|attributes| Song.new(attributes)}
   end
 
