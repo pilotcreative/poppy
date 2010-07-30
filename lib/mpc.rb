@@ -1,38 +1,38 @@
 class Mpc
 
   @@regexps = {
-    'ACK' => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
-    'OK'  => /\AOK\n\Z/,
+    "ACK" => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
+    "OK"  => /\AOK\n\Z/,
   }
-  def initialize(host = '127.0.0.1', port = 6600)
+  def initialize(host = "127.0.0.1", port = 6600)
     @socket = TCPSocket.new(host,port)
     @socket.gets
   end
 
   def play(song = nil)
-    song.nil? ? command = 'play' : command = "play #{song.to_s}"
+    song.nil? ? command = "play" : command = "play #{song.to_s}"
     puts(command)
   end
 
   def pause
-    puts('pause 1')
+    puts("pause 1")
   end
 
   def paused?
     status_hash = status
-    status_hash[:state] == 'pause'
+    status_hash[:state] == "pause"
   end
 
   def stop
-    puts('stop')
+    puts("stop")
   end
 
   def next
-    puts('next')
+    puts("next")
   end
 
   def previous
-    puts('previous')
+    puts("previous")
   end
 
   def random(state = nil)
@@ -46,7 +46,7 @@ class Mpc
 
   def random?
     status_hash = status
-    status_hash[:random] == '1'
+    status_hash[:random] == "1"
   end
 
   def repeat(state = nil)
@@ -60,7 +60,7 @@ class Mpc
 
   def repeat?
     status_hash = status
-    status_hash[:repeat] == '1'
+    status_hash[:repeat] == "1"
   end
 
   def setvol(volume)
@@ -97,36 +97,43 @@ class Mpc
     raise Exception.new("Wrong type: #{type}")
   end
   if what == ""
-    raise Exception.new("'What' can't be an empty string")
+    raise Exception.new(" \"What\" can\"t be an empty string")
   end
   parse_song_list(puts("search #{type} #{what}"))
  end
 
  def playlist_info
-  parse_song_list(puts('playlistinfo'))
+  parse_song_list(puts("playlistinfo"))
  end
 
  def listall
-  parse_song_list(puts('listallinfo'))
+  parse_song_list(puts("listallinfo"))
  end
 
  def current_song
-  to_hash(puts('currentsong'))
+  to_hash(puts("currentsong"))
  end
 
  def stats
-   to_hash(puts('stats'))
+   to_hash(puts("stats"))
  end
 
  def ping
    song = current_song
-   unless status[:state] == 'stop'
-     output = {:song_time=>song[:time],:time=>status[:time].split(':').first,:artist=>song[:artist],:title=>song[:title],:file=>song[:file],:album=>song[:album],:id=>song[:id]}
+   unless status[:state] == "stop"
+     output = {:song_time=>song[:time],:time=>status[:time].split(":").first,:artist=>song[:artist],:title=>song[:title],:file=>song[:file],:album=>song[:album],:id=>song[:id]}
    else
      output = {:song_time=>0,:time=>0,:artist=>song[:artist],:title=>song[:title],:file=>song[:file],:album=>song[:album],:id=>song[:id]}
    end
  end
 
+ def listplaylists
+  to_hash(puts("listplaylists"))
+ end
+
+ def listplaylistinfo(name)
+   parse_song_list(puts("listplaylistinfo #{name}"))
+ end
   private
 
   def puts(command)
@@ -137,9 +144,9 @@ class Mpc
   def gets
     response = ""
     while line = @socket.gets do
-      if @@regexps['OK'].match(line)
+      if @@regexps["OK"].match(line)
         return response
-      elsif error = @@regexps['ACK'].match(line)
+      elsif error = @@regexps["ACK"].match(line)
         raise Exception
       else
         response << line
@@ -149,14 +156,14 @@ class Mpc
   end
 
   def status
-    output = puts('status')
+    output = puts("status")
     to_hash(output)
   end
 
   def to_hash(string)
     status_hash = Hash.new
     string.each do |line|
-      key, value = line.chomp.split(': ', 2) 
+      key, value = line.chomp.split(": ", 2) 
       status_hash[key.parameterize.underscore.to_sym] = value
     end 
     status_hash
@@ -166,10 +173,10 @@ class Mpc
     output = Array.new
     song_hash = Hash.new
     song_list.each do |song|
-      if song.match('file')
+      if song.match("file")
         output << song_hash
         song_hash = Hash.new
-      # elsif !song.match('directory')
+      # elsif !song.match("directory")
       end
       song_hash.merge!(to_hash(song))
     end

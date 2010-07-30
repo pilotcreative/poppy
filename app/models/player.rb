@@ -4,7 +4,7 @@ class Player
   attr_reader :mpc
   @@instance = nil
 
-  def initialize(host = 'localhost', port = 6600)
+  def initialize(host = "localhost", port = 6600)
     @mpc = Mpc.new(host,port)
     @@instance = self
   end
@@ -26,4 +26,11 @@ class Player
     @mpc.listall.map{|attributes| Song.new(attributes)}
   end
 
+  def listplaylists
+    @mpc.listplaylists.map{|key,value| Playlist.new(value)}
+  end
+
+  def listplaylistinfo(name)
+    @mpc.listplaylistinfo(name).map{|attributes| Song.new(attributes)}
+  end
 end
