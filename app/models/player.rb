@@ -19,11 +19,11 @@ class Player
   end
 
   def find(type,what="")
-    @mpc.find(type,what).map{|attributes| Song.new(attributes,@@instance)}
+    @mpc.find(type,what).map{|attributes| Song.new(attributes)}
   end
 
   def songs
-    @mpc.listall.map{|attributes| Song.new(attributes,@@instance)}
+    @mpc.listall.map{|attributes| Song.new(attributes)}
   end
 
 end

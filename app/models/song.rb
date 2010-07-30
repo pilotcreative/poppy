@@ -8,8 +8,7 @@ class Song
 
   define_attribute_methods [:artist, :title, :time, :date, :album, :genre, :file]
 
-  def initialize(attributes, player = Player.instance)
-    @player = player.mpc
+  def initialize(attributes)
     @attributes = attributes.with_indifferent_access
   end
 
@@ -17,12 +16,12 @@ class Song
     @player.find(type, what)
   end
 
-  def all
-    @player.listall
+  def self.all
+    Player.instance.songs
   end
 
   def current
-    @player.current_song
+    Player.instance.current_song
   end
 
   protected
