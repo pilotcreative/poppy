@@ -63,7 +63,7 @@ class Mpc
     status_hash[:repeat] == "1"
   end
 
-  def setvol(volume)
+  def set_volume(volume)
     begin
       unless (0..100).include?(volume)
         raise Exception.new("Volume should be between 0 (minimum) and 100 (maximum)")
@@ -106,7 +106,7 @@ class Mpc
   parse_song_list(puts("playlistinfo"))
  end
 
- def listall
+ def list_all_songs
   parse_song_list(puts("listallinfo"))
  end
 
@@ -127,15 +127,19 @@ class Mpc
    end
  end
 
- def listplaylists
+ def playlist_info
+   parse_song_list(puts("playlistinfo"))
+ end
+
+ def list_playlists
   to_hash(puts("listplaylists"))
  end
 
- def listplaylistinfo(name)
+ def list_playlist_info(name)
    parse_song_list(puts("listplaylistinfo #{name}"))
  end
 
- def add(name, uri)
+ def add_to_playlist(name, uri)
   puts("playlistadd \"#{name}\" \"#{uri}\"")
  end
   private

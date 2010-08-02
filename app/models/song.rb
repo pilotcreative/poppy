@@ -17,19 +17,19 @@ class Song
   end
 
   def self.find_by_artist(what)
-    self.find('artist', what)
+    self.find("artist", what)
   end
 
   def self.find_by_title(what)
-    self.find('artist', what)
+    self.find("artist", what)
   end
 
   def self.find_by_album(what)
-    self.find('album',what)
+    self.find("album",what)
   end
 
   def self.find_by_file(what)
-    self.find('filename',what)
+    self.find("filename",what)
   end
 
   def self.all

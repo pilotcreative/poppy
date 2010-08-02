@@ -19,7 +19,7 @@ class MpcTest < Test::Unit::TestCase
   end
   
   test "gets outputs array on playlist_info command" do
-    @mpc.stubs(:gets).returns("file: iTunes/iTunes Music/Paktofonika/Kinematografia/Na Mocy Paktu.mp3\nTime: 264\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nDate: 2000\nGenre: Hip Hop\nComposer: Magik Fokus Rahim\nPos: 0\nId: 0\nfile: Paktofonika - Kinematografia/Na Mocy Paktu.mp3\nTime: 61\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nTrack: 1\nDate: 2001\nGenre: Hip-Hop\nPos: 1\nId: 1\nfile: Paktofonika/Paktofonika - Priorytety.mp3\n")
+    @mpc.stubs(:gets).returns("file: iTunes/iTunes Music/Paktofonika/Kinematografia/Na Mocy Paktu.mp3\nTime: 264\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nDate: 2000\nGenre: Hip Hop\nComposer: Magik Fokus Rahim\nPos: 0\nId: 0\nfile: Paktofonika - Kinematografia/Na Mocy Paktu.mp3\nTime: 61\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nTrack: 1\nDate: 2001\nGenre: Hip-Hop\nPos: 1\nId: 1\n")
     assert_equal([{:file=>"iTunes/iTunes Music/Paktofonika/Kinematografia/Na Mocy Paktu.mp3",:date=>"2000", :album=>"Kinematografia", :genre=>"Hip Hop", :time=>"264",
        :title=>"Na Mocy Paktu",:pos=>"0", :composer=>"Magik Fokus Rahim", 
         :id=>"0", :artist=>"Paktofonika"},
@@ -57,14 +57,14 @@ class MpcTest < Test::Unit::TestCase
     @mpc.repeat(0)
   end
 
-  test "setvol with volume in propper range should not raise exception" do
+  test "set_volume with volume in propper range should not raise exception" do
     @mpc.expects(:puts).with('setvol 100')
-    @mpc.setvol(100)
+    @mpc.set_volume(100)
   end
 
   test "setvol with volume out of range should raise exception" do
     assert_raise(Mpc::Exception) do
-      @mpc.setvol(200)
+      @mpc.set_volume(200)
     end
   end
 
