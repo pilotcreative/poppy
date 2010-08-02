@@ -4,8 +4,9 @@ class Player
   attr_reader :mpc
   @@instance = nil
 
-  def initialize(host = "localhost", port = 6600)
-    @mpc = Mpc.new(host,port)
+  def initialize(player="default")
+    config = YAML.load_file("#{RAILS_ROOT}config/player.yml")
+    @mpc = Mpc.new(config[player]["host"], config[player]["port"])
     @@instance = self
   end
 
