@@ -2,19 +2,48 @@ class Playlist
   extend ActiveModel::Naming
 
   attr_accessor :name
-  def initialize(name)
+  @exist = false
+  def initialize(name, exist = false)
     @name = name
+    @original_name = name
+    @name_changed = false
+    @exist = exist
   end
 
   def self.all
-    Player.instance.listplaylists
+    Player.instance.list_playlists
   end
 
   def songs
-    Player.instance.listplaylistinfo(@name)
+    Player.instance.list_playlist_info(@name)
+  end
+
+  def name=(name)
+    @name = name
+    @name_changed = true
+  end
+
+  def save
+    if @name_changed && @exist
+      Player.instance.rename_playlist(@original_name, @name)
+      @original_name = @name
+    elsif !@exist
+      Player.instance.create_playlist(@name)
+    end
+    @name_changed = false
+    @exist = true
   end
 
   def add(song)
-    Player.instance.add(@name,song.file)
+    Player.instance.add_to_playlist(@name, song.file)
+    @exist = true
+  end
+
+  def clear!
+    Player.instance.clear!(@name)
+  end
+
+  def destroy
+    Player.instance.playlist_destroy(@name) if @exist
   end
 end
