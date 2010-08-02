@@ -32,6 +32,10 @@ class Player
     @mpc.list_all_songs.map{|attributes| Song.new(attributes)}
   end
 
+  def current_playlist_songs
+    @mpc.current_playlist_songs.map{|attributes| Song.new(attributes) }
+  end
+
   def playlist_info
     @mpc.playlist_info.map{|attributes| Song.new(attributes) }
   end

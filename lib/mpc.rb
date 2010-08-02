@@ -102,6 +102,10 @@ class Mpc
   parse_song_list(puts("search #{type} #{what}"))
  end
 
+ def current_playlist_songs
+  parse_song_list(puts("playlistid"))
+ end
+
  def playlist_info
   parse_song_list(puts("playlistinfo"))
  end

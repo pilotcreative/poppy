@@ -14,7 +14,11 @@ class Playlist
     Player.instance.list_playlists
   end
 
-  def songs
+  def self.current_playlist_songs
+    Player.instance.current_playlist_songs
+  end
+
+  def self.songs
     Player.instance.list_playlist_info(@name)
   end
 
