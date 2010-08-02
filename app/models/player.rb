@@ -1,6 +1,6 @@
 class Player
   extend ActiveModel::Naming
-  delegate :stop, :start, :pause, :paused?, :next, :previous, :ping, :add_to_playlist, :playlist_destroy, :clear!, :rename_playlist, :create_playlist, :to => :mpc
+  delegate :stop, :start, :pause, :paused?, :next, :previous, :ping, :add_to_playlist, :playlist_destroy, :clear!, :rename_playlist, :create_playlist, :delete_song, :to => :mpc
   attr_reader :mpc
   @@instance = nil
 
@@ -47,5 +47,4 @@ class Player
   def list_playlist_info(name)
     @mpc.list_playlist_info(name).map{|attributes| Song.new(attributes)}
   end
-
 end

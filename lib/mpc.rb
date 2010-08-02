@@ -213,6 +213,10 @@ class Mpc
     output
    end
 
+   def delete_song(song)
+    puts("delete #{song}")
+   end
+
   class Exception < StandardError  
   end
 end
