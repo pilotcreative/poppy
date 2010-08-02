@@ -142,6 +142,22 @@ class Mpc
  def add_to_playlist(name, uri)
   puts("playlistadd \"#{name}\" \"#{uri}\"")
  end
+
+ def rename_playlist(original_name, name)
+  puts("rename \"#{original_name}\" \"#{name}\"")
+ end
+
+ def create_playlist(name)
+  puts("save \"#{name}\"")
+ end
+
+ def playlist_destroy(name)
+  puts("rm \"#{name}\"")
+ end
+
+ def clear!(name)
+  puts("playlistclear \"#{name}\"")
+ end
   private
 
   def puts(command)
