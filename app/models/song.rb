@@ -36,7 +36,7 @@ class Song
     Player.instance.songs
   end
 
-  def current
+  def self.current
     Player.instance.current_song
   end
 
