@@ -111,7 +111,7 @@ class Mpc
  end
 
  def current_song
-  to_hash(puts("currentsong"))
+   parse_song_list(puts("currentsong"))
  end
 
  def stats
@@ -119,11 +119,11 @@ class Mpc
  end
 
  def ping
-   song = current_song
+   song = current_song[0]
    unless status[:state] == "stop"
      output = {:song_time=>song[:time],:time=>status[:time].split(":").first,:artist=>song[:artist],:title=>song[:title],:file=>song[:file],:album=>song[:album],:id=>song[:id]}
    else
-     output = {:song_time=>0,:time=>0,:artist=>song[:artist],:title=>song[:title],:file=>song[:file],:album=>song[:album],:id=>song[:id]}
+     output = {:song_time=>0,:time=>0,:artist=>nil,:title=>nil,:file=>nil,:album=>nil,:id=>nil}
    end
  end
 
@@ -171,7 +171,7 @@ class Mpc
       if @@regexps["OK"].match(line)
         return response
       elsif error = @@regexps["ACK"].match(line)
-        raise Exception
+        raise Exception.new(line)
       else
         response << line
       end
