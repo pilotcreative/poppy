@@ -1,9 +1,9 @@
 class Mpc
-
   @@regexps = {
     "ACK" => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
     "OK"  => /\AOK\n\Z/,
   }
+
   def initialize(host = "127.0.0.1", port = 6600)
     @socket = TCPSocket.new(host,port)
     @socket.gets
@@ -162,6 +162,32 @@ class Mpc
  def clear!(name)
   puts("playlistclear \"#{name}\"")
  end
+
+ def get_paths
+  song_list(puts('listall'))
+ end
+
+ def list_library
+   # root = Tree::TreeNode.new('/')
+   root = Hash.new
+   get_paths.each do |path|
+     segments = path.split('/')
+     if root[segments.first].nil?
+       # root << Tree::TreeNode.new(segments.first)
+       root[segments.first] = {}
+     end
+     last_element = root[segments.first]
+     segments.delete_at(0)
+     segments.each do |element|
+        if last_element[element].nil?
+          # last_element << Tree::TreeNode.new(element)
+          last_element[element] = {}
+        end
+        last_element = last_element[element]
+     end
+   end
+   root
+ end
   private
 
   def puts(command)
@@ -210,6 +236,16 @@ class Mpc
     end
     output << song_hash
     output.delete_at(0)
+    output
+   end
+
+   def song_list(list)
+    output = Array.new
+    list.each do |song|
+      if song.match('file')
+        output << song.split(": ",2).second.gsub!("\n","")
+      end
+    end
     output
    end
 

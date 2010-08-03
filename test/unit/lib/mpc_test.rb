@@ -95,4 +95,32 @@ class MpcTest < Test::Unit::TestCase
   test "find with correct type and with string should return hash with songs" do
 
   end
+
+  test "list_library should return tree" do
+    @mpc.stubs(:get_paths).returns(["Abra Dab/Miasto Jest Nasze/ABRADAB - Bezposrednio.mp3",
+    "Abra Dab/Miasto Jest Nasze/miasto jest nasze (3).mp3",
+    "iTunes/iTunes Music/02. Aaliyah/Romeo must die/06 Are You Feelin Me.mp3",
+    "iTunes/iTunes Music/07. Dave Bing ft. Lil' Mo/Romeo must die/12 Someone Gonna Die Tonight.mp3"])
+
+    assert_equal({"iTunes"=>{
+      "iTunes Music"=>{
+        "02. Aaliyah"=>{
+          "Romeo must die"=>{
+            "06 Are You Feelin Me.mp3"=>{}
+          }
+        },
+        "07. Dave Bing ft. Lil' Mo"=>{
+          "Romeo must die"=>{
+            "12 Someone Gonna Die Tonight.mp3"=>{}
+          }
+        }
+      }},
+      "Abra Dab"=>{
+        "Miasto Jest Nasze"=>{
+          "ABRADAB - Bezposrednio.mp3"=>{},
+          "miasto jest nasze (3).mp3"=>{}
+        }
+      }
+    },@mpc.list_library)
+  end
 end
