@@ -1,10 +1,12 @@
 $(document).ready(function() {
+	$('#tabs').tabs();
 	ping_interval = false;
 	slide = false;
 	$('.button').click(function() {
+		$(this).attr('data-method') ? method = $(this).attr('data-method') : method = "GET";
 		$.ajax({
 		  url: $(this).attr('href'),
-		  type: "PUT",
+		  type: method,
 		  dataType: "script",
 		});
 		return false;
@@ -44,7 +46,20 @@ $(document).ready(function() {
 			$.get('/player/volume?volume='+ui.value);
 		}
 	});
+	$('#playlist').sortable({
+		update: function(event,ui){
+		}
+	});
 	ping_interval = setInterval('ping()',1000);
+	$('#create_tree').click(function() {
+		$("#library")
+			.jstree({
+				"plugins" : [ "themes", "html_data"],
+				"themes": {
+					theme: "apple"
+				}
+			});
+	});
 });
 function ping(){
 	$.ajax({
