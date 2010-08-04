@@ -5,7 +5,7 @@ class Mpc
   }
 
   def initialize(host = "127.0.0.1", port = 6600)
-    @socket = TCPSocket.new(host,port)
+    @socket = TCPSocket.new(host, port)
     @socket.gets
   end
 
@@ -106,10 +106,6 @@ class Mpc
   parse_song_list(puts("playlistid"))
  end
 
- def playlist_info
-  parse_song_list(puts("playlistinfo"))
- end
-
  def list_all_songs
   parse_song_list(puts("listallinfo"))
  end
@@ -129,10 +125,6 @@ class Mpc
    else
      output = {:song_time=>0,:time=>0,:artist=>nil,:title=>nil,:file=>nil,:album=>nil,:id=>nil}
    end
- end
-
- def playlist_info
-   parse_song_list(puts("playlistinfo"))
  end
 
  def list_playlists
@@ -155,7 +147,7 @@ class Mpc
   puts("save \"#{name}\"")
  end
 
- def playlist_destroy(name)
+ def destroy_playlist(name)
   puts("rm \"#{name}\"")
  end
 
@@ -188,7 +180,8 @@ class Mpc
    end
    root
  end
-  private
+
+ private
 
   def puts(command)
     @socket.puts(command)
@@ -230,28 +223,27 @@ class Mpc
       if song.match("file")
         output << song_hash
         song_hash = Hash.new
-      # elsif !song.match("directory")
       end
       song_hash.merge!(to_hash(song))
     end
     output << song_hash
     output.delete_at(0)
     output
-   end
+  end
 
-   def song_list(list)
+  def song_list(list)
     output = Array.new
     list.each do |song|
-      if song.match('file')
+      if song.match("file")
         output << song.split(": ",2).second.gsub!("\n","")
       end
     end
     output
-   end
+  end
 
-   def delete_song(song)
+  def delete_song(song)
     puts("delete #{song}")
-   end
+  end
 
   class Exception < StandardError  
   end

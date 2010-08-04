@@ -48,6 +48,6 @@ class Playlist
   end
 
   def destroy
-    Player.instance.playlist_destroy(@name) if @exist
+    Player.instance.destroy_playlist(@name) if @exist
   end
 end

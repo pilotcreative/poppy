@@ -4,7 +4,7 @@ class Player
   attr_reader :mpc
   @@instance = nil
 
-  def initialize(player="default")
+  def initialize(player = "default")
     config = YAML.load_file("#{RAILS_ROOT}config/player.yml")
     @mpc = Mpc.new(config[player]["host"], config[player]["port"])
     @@instance = self
@@ -20,7 +20,7 @@ class Player
   end
 
   def find(type, what = "")
-    @mpc.find(type,what).map{|attributes| Song.new(attributes)}
+    @mpc.find(type, what).map{|attributes| Song.new(attributes)}
   end
 
   def current_song
@@ -34,10 +34,6 @@ class Player
 
   def current_playlist_songs
     @mpc.current_playlist_songs.map{|attributes| Song.new(attributes) }
-  end
-
-  def playlist_info
-    @mpc.playlist_info.map{|attributes| Song.new(attributes) }
   end
 
   def list_playlists
