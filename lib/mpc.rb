@@ -168,20 +168,20 @@ class Mpc
  end
 
  def list_library
-   # root = Tree::TreeNode.new('/')
-   root = Hash.new
+   root = Tree::TreeNode.new('/')
+   # root = Hash.new
    get_paths.each do |path|
      segments = path.split('/')
      if root[segments.first].nil?
-       # root << Tree::TreeNode.new(segments.first)
-       root[segments.first] = {}
+       root << Tree::TreeNode.new(segments.first)
+       # root[segments.first] = {}
      end
      last_element = root[segments.first]
      segments.delete_at(0)
      segments.each do |element|
         if last_element[element].nil?
-          # last_element << Tree::TreeNode.new(element)
-          last_element[element] = {}
+          last_element << Tree::TreeNode.new(element)
+          # last_element[element] = {}
         end
         last_element = last_element[element]
      end
