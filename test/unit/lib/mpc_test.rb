@@ -17,17 +17,7 @@ class MpcTest < Test::Unit::TestCase
     TCPSocket.any_instance.stubs(:gets).returns("OK\n")
     assert_equal("",@mpc.stop )
   end
-  
-  test "gets outputs array on playlist_info command" do
-    @mpc.stubs(:gets).returns("file: iTunes/iTunes Music/Paktofonika/Kinematografia/Na Mocy Paktu.mp3\nTime: 264\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nDate: 2000\nGenre: Hip Hop\nComposer: Magik Fokus Rahim\nPos: 0\nId: 0\nfile: Paktofonika - Kinematografia/Na Mocy Paktu.mp3\nTime: 61\nArtist: Paktofonika\nTitle: Na Mocy Paktu\nAlbum: Kinematografia\nTrack: 1\nDate: 2001\nGenre: Hip-Hop\nPos: 1\nId: 1\n")
-    assert_equal([{:file=>"iTunes/iTunes Music/Paktofonika/Kinematografia/Na Mocy Paktu.mp3",:date=>"2000", :album=>"Kinematografia", :genre=>"Hip Hop", :time=>"264",
-       :title=>"Na Mocy Paktu",:pos=>"0", :composer=>"Magik Fokus Rahim", 
-        :id=>"0", :artist=>"Paktofonika"},
-         {:file=>"Paktofonika - Kinematografia/Na Mocy Paktu.mp3",:date=>"2001", :track=>"1", :album=>"Kinematografia", :genre=>"Hip-Hop",
-            :time=>"61", :title=>"Na Mocy Paktu", :pos=>"1", :id=>"1",
-            :artist=>"Paktofonika"} ],@mpc.playlist_info )
-  end
-  
+
   test "status outputs propper hash" do
     @mpc.stubs(:gets).returns("volume: -1\nrepeat: 0\nrandom: 0\nsingle: 0\nconsume: 0\nplaylist: 43\nplaylistlength: 41\nxfade: 0\nstate: stop\nsong: 17\nsongid: 17\nnextsong: 18\nnextsongid: 18\n")
     assert_equal({:songid=>"17", :state=>"stop", :single=>"0", :volume=>"-1", :nextsong=>"18", :consume=>"0", :nextsongid=>"18", :playlist=>"43", :repeat=>"0", :song=>"17", :playlistlength=>"41", :random=>"0", :xfade=>"0"},@mpc.send(:status) )
@@ -101,26 +91,34 @@ class MpcTest < Test::Unit::TestCase
     "Abra Dab/Miasto Jest Nasze/miasto jest nasze (3).mp3",
     "iTunes/iTunes Music/02. Aaliyah/Romeo must die/06 Are You Feelin Me.mp3",
     "iTunes/iTunes Music/07. Dave Bing ft. Lil' Mo/Romeo must die/12 Someone Gonna Die Tonight.mp3"])
-
-    assert_equal({"iTunes"=>{
-      "iTunes Music"=>{
-        "02. Aaliyah"=>{
-          "Romeo must die"=>{
-            "06 Are You Feelin Me.mp3"=>{}
-          }
-        },
-        "07. Dave Bing ft. Lil' Mo"=>{
-          "Romeo must die"=>{
-            "12 Someone Gonna Die Tonight.mp3"=>{}
-          }
-        }
-      }},
-      "Abra Dab"=>{
-        "Miasto Jest Nasze"=>{
-          "ABRADAB - Bezposrednio.mp3"=>{},
-          "miasto jest nasze (3).mp3"=>{}
-        }
-      }
-    },@mpc.list_library)
+    @root = Tree::TreeNode.new('/')
+    @first_node = Tree::TreeNode.new('Abra Dab')
+    
+    @folder = Tree::TreeNode.new('Miasto Jest Nasze')
+    @folder << Tree::TreeNode.new('ABRADAB - Bezposrednio.mp3')
+    @folder << Tree::TreeNode.new('miasto jest nasze (3).mp3') 
+    
+    @first_node << @folder
+    @root << @first_node
+    
+    @second_node = Tree::TreeNode.new('iTunes')
+    @folder = Tree::TreeNode.new('iTunes Music')
+    @first_subfolder = Tree::TreeNode.new('02. Aaliyah')
+    @element = Tree::TreeNode.new('Romeo must die')
+    @mp3 = Tree::TreeNode.new('06 Are You Feelin Me.mp3')
+    @element << @mp3
+    @first_subfolder << @element
+    @second_subfolder = Tree::TreeNode.new("07. Dave Bing ft Lil' Mo")
+    @element = Tree::TreeNode.new('Romeo must die')
+    @mp3 = Tree::TreeNode.new('12 Someone Gonna Die Tonight.mp3')
+    @element << @mp3
+    @second_subfolder << @element
+    
+    @folder << @first_subfolder
+    @folder << @second_subfolder
+    @second_node << @folder
+    @root << @second_node
+    
+    assert_equal(@root.to_s,@mpc.list_library.to_s)
   end
 end
