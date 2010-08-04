@@ -1,58 +1,62 @@
 class PlayersController < ApplicationController
-  before_filter :connect_to_mpc
+  before_filter :connect_to_player
   def index
+    @current_song = Song.current
+    @songs = Playlist.current_playlist_songs
+    @library = Player.instance.list_library
   end
 
   def play
-    @mpc.play(params[:pos])
-    if params[:pos]
+    @player.play(params[:song])
+    if params[:song]
       render :action => "change_song"
     end
   end
 
   def pause
-    @mpc.pause
+    @player.pause
   end
 
   def previous
-    @mpc.previous
+    @player.previous
     render :action => "change_song"
   end
 
   def next
-    @mpc.next
+    @player.next
     render :action => "change_song"
   end
 
   def stop
-    @mpc.stop
+    @player.stop
   end
-  
+
   def volume
-    @mpc.setvol(params[:volume].to_i)
+    @player.setvol(params[:volume].to_i)
     render :nothing => true
   end
 
   def volume_up
-    @mpc.volume_up
+    @player.volume_up
     render :nothing => true
   end
 
   def volume_down
-    @mpc.volume_down
+    @player.volume_down
     render :nothing => true
   end
 
   def ping
-    @ping = @mpc.ping
+    @ping = @player.ping
   end
-  
+
   def seek
-    @mpc.seek(params[:time].to_i,params[:song])
+    @player.seek(params[:time].to_i, params[:song])
   end
 
   private
-  def connect_to_mpc
-    @mpc = Mpc.new('10.0.1.2')
+
+  def connect_to_player
+    @player = Player.new("object_reload")
   end
 end

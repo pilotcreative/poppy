@@ -1,23 +1,37 @@
 module PlayersHelper
   def song_info(song)
-    if song[:title].blank? || song[:artist].blank?
-      song[:file]
+    return "" if song.nil?
+    if song.try(:title).blank? || song.try(:artist).blank?
+      song.file
     else
-      song[:artist] + ' - ' + song[:title]
+      song.artist + ' - ' + song.title
     end 
   end
 
-  def extended_song_info(song)
-    output = ''
-    if song.include?(:album)
-      output = content_tag(:strong,'Album:') + song[:album]
+  def display_childrens(node)
+    content_tag(:ul) do
+      "".html_safe.tap do |result|
+        result << display_nodes(node)
+      end
     end
-    if song.include?(:genre)
-      output += content_tag(:strong,' Genre:') + song[:genre]
-    end
-    if song.include?(:date)
-      output += content_tag(:strong,' Date:')  + song[:date]
-    end
-    output
   end
+
+  def display_nodes(node)
+    "".html_safe.tap do |result|
+      result << content_tag(:li) do
+        "".html_safe.tap do |leaf|
+          leaf << content_tag(:a,node.name)
+          childrens = node.children
+          leaf << content_tag(:ul) do
+            "".html_safe.tap do |element|
+              childrens.each do |child|
+                element << display_nodes(child)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
 end
