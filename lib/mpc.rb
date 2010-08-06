@@ -1,7 +1,8 @@
 class Mpc
   @@regexps = {
-    "ACK" => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
-    "OK"  => /\AOK\n\Z/,
+    "ACK"  => /\AACK \[(\d+)\@(\d+)\] \{(.*)\} (.+)\Z/,
+    "OK"   => /\AOK\n\Z/,
+    "FILE" => /\Afile\:(.*)\Z/,
   }
 
   def initialize(host = "127.0.0.1", port = 6600)
@@ -224,7 +225,7 @@ class Mpc
     output = Array.new
     song_hash = Hash.new
     song_list.each do |song|
-      if song.match("file")
+      if song.match(@@regexps["FILE"])
         output << song_hash
         song_hash = Hash.new
       end
@@ -238,7 +239,7 @@ class Mpc
   def song_list(list)
     output = Array.new
     list.each do |song|
-      if song.match("file")
+      if song.match(@@regexps["FILE"])
         output << song.split(": ",2).second.gsub!("\n","")
       end
     end
