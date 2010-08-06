@@ -60,6 +60,11 @@ class PlayersController < ApplicationController
     @player.seek(params[:time].to_i, params[:song])
   end
 
+  def add
+    Player.instance.add_to_playlist(params[:uri])
+    render :nothing => true
+  end
+
   private
 
   def connect_to_player

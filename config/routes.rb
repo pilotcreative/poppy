@@ -13,6 +13,7 @@ Poppy::Application.routes.draw do |map|
       get :ping
       get :library
       get :playlist
+      put :add
     end
   end
   root :to => "players#index"
