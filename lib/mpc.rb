@@ -161,23 +161,23 @@ class Mpc
  end
 
  def get_paths
-  song_list(puts('listall'))
+  song_list(puts("listall"))
  end
 
  def list_library
-   root = Tree::TreeNode.new('/')
+   root = Tree::TreeNode.new("/")
    # root = Hash.new
    get_paths.each do |path|
-     segments = path.split('/')
+     segments = path.split("/")
      if root[segments.first].nil?
-       root << Tree::TreeNode.new(segments.first)
+       root << Tree::TreeNode.new(segments.first,segments.first)
        # root[segments.first] = {}
      end
      last_element = root[segments.first]
-     segments.delete_at(0)
-     segments.each do |element|
+     first_element = segments.delete_at(0)
+     segments.each_with_index do |element, index|
         if last_element[element].nil?
-          last_element << Tree::TreeNode.new(element)
+          last_element << Tree::TreeNode.new(element, first_element + "/" + segments[0...index+1].join("/") )
           # last_element[element] = {}
         end
         last_element = last_element[element]
