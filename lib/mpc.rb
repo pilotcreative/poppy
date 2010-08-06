@@ -135,8 +135,12 @@ class Mpc
    parse_song_list(puts("listplaylistinfo #{name}"))
  end
 
- def add_to_playlist(name, uri)
-  puts("playlistadd \"#{name}\" \"#{uri}\"")
+ def add_to_playlist(uri, name = nil)
+   if name.nil?
+     puts("add \"#{uri}\"")
+   else
+     puts("playlistadd \"#{name}\" \"#{uri}\"")
+   end
  end
 
  def rename_playlist(original_name, name)

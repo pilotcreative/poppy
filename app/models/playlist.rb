@@ -38,8 +38,8 @@ class Playlist
     @exist = true
   end
 
-  def add(song)
-    Player.instance.add_to_playlist(@name, song.file)
+  def add(path)
+    Player.instance.add_to_playlist(path, @name)
     @exist = true
   end
 
