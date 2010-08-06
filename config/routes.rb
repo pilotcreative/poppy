@@ -11,6 +11,8 @@ Poppy::Application.routes.draw do |map|
       put :volume_up
       put :seek
       get :ping
+      get :library
+      get :playlist
     end
   end
   root :to => "players#index"

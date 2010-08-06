@@ -1,0 +1,14 @@
+%h3 Library
+=display_childrens(@library)
+:javascript
+	$("#library").treeview({
+		prerendered: true
+	});
+	$(".add_to_playlist").click(function(){
+		$.ajax({
+		  url: $(this).attr('href'),
+		  type: "PUT",
+		  dataType: "script",
+		});
+		return false;
+	});

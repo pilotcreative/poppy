@@ -14,18 +14,8 @@
 #tabs
 	%ul
 		%li
-			%a{:href=>'#tab-1'} Playlist
+			=link_to(content_tag(:span,"PLaylist"), playlist_player_path)
 		%li
-			%a{:href=>'#tab-2'} Library
+			=link_to(content_tag(:span,"Library"), library_player_path)
 	#tab-1
-		%h3 Current Playlist
-		#playlist
-			-@songs.each_with_index do |song,index|
-				%p
-					=link_to 'Play',play_player_path(:song=>index),{:class=>'button',:method=>:put}
-					=song_info(song)
 	#tab-2
-		#library
-			%a{:id=>'create_tree'}
-				Create JavaScipt-based Tree
-			=display_childrens(@library)

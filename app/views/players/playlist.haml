@@ -1,0 +1,6 @@
+%h3 Current Playlist
+#playlist
+	-@songs.each_with_index do |song,index|
+		%p
+			=link_to 'Play',play_player_path(:song=>index),{:class=>'button',:method=>:put}
+			=song_info(song)

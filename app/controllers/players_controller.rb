@@ -2,7 +2,13 @@ class PlayersController < ApplicationController
   before_filter :connect_to_player
   def index
     @current_song = Song.current
+  end
+
+  def playlist
     @songs = Playlist.current_playlist_songs
+  end
+
+  def library
     @library = Player.instance.list_library
   end
 
