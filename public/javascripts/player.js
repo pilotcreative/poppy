@@ -57,15 +57,6 @@ $(document).ready(function() {
 		}
 	});
 	ping_interval = setInterval('ping()',1000);
-	$('#create_tree').click(function() {
-		$("#library")
-			.jstree({
-				"plugins" : [ "themes", "html_data"],
-				"themes": {
-					theme: "apple"
-				}
-			});
-	});
 });
 function ping(){
 	$.ajax({

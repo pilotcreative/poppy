@@ -9,7 +9,7 @@ module PlayersHelper
   end
 
   def display_childrens(node)
-    content_tag(:ul) do
+    content_tag(:ul, :class=>"treeview", :id=>'library') do
       "".html_safe.tap do |result|
         result << display_nodes(node)
       end
@@ -18,14 +18,20 @@ module PlayersHelper
 
   def display_nodes(node)
     "".html_safe.tap do |result|
-      result << content_tag(:li) do
+      node.hasChildren? ? type = "expandable" : type = ""
+      result << content_tag(:li,:class=>type) do
         "".html_safe.tap do |leaf|
-          leaf << content_tag(:a,node.name)
+          leaf << content_tag(:div,"",:class=>"hitarea expandable-hitarea") if type == "expandable"
+          leaf << node.name #link_to(node.name)
+          leaf << link_to("+",add_player_path(:uri=>node.content),{:class=>"add_to_playlist", :method=>:put})
+          #content_tag(:a,node.name)
           childrens = node.children
-          leaf << content_tag(:ul) do
-            "".html_safe.tap do |element|
-              childrens.each do |child|
-                element << display_nodes(child)
+          if node.hasChildren?
+            leaf << content_tag(:ul,:style=>"display:none;") do
+              "".html_safe.tap do |element|
+                childrens.each do |child|
+                  element << display_nodes(child) unless child.nil?
+                end
               end
             end
           end
@@ -33,5 +39,4 @@ module PlayersHelper
       end
     end
   end
-
 end
