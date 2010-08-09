@@ -10,13 +10,14 @@ Poppy::Application.routes.draw do |map|
       put :volume_down
       put :volume_up
       put :seek
+      put :add
       get :ping
       get :library
-      get :playlist
-      put :add
-      delete :clear
-      delete :delete_song
     end
+  end
+  resource :playlist, :only =>[:clear, :delete_song, :show] do
+    delete :clear
+    delete :delete_song
   end
   resource :song_search, :only => [:new, :create]
   root :to => "players#index"

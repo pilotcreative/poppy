@@ -14,8 +14,11 @@
 #tabs
 	%ul
 		%li
-			=link_to(content_tag(:span, "Playlist"), playlist_player_path, {:id=>"tab-1-trigger"})
+			=link_to(content_tag(:span, "Playlist"), playlist_path, {:id=>"tab-1-trigger"})
 		%li
 			=link_to(content_tag(:span, "Library"), library_player_path, {:id=>"tab-2-trigger"})
+		%li
+			=link_to(content_tag(:span, "Search"), new_song_search_path, {:id=>"tab-3-trigger"})
 	#tabs-1
 	#tabs-2
+	#tabs-3

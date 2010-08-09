@@ -3,19 +3,12 @@ class PlayersController < ApplicationController
     @current_song = Song.current
   end
 
-  def playlist
-    @songs = Playlist.current_playlist_songs
-  end
-
   def library
     @library = Player.instance.list_library
   end
 
   def play
     @player.play(params[:song])
-    if params[:song]
-      render :action => "change_song"
-    end
   end
 
   def pause
@@ -62,20 +55,5 @@ class PlayersController < ApplicationController
   def add
     Player.instance.add_to_playlist(params[:uri])
     @songs = Playlist.current_playlist_songs
-  end
-
-  def clear
-    Playlist.clear!
-  end
-
-  def delete_song
-    Player.instance.delete_song(params[:song])
-    @songs = Playlist.current_playlist_songs
-    render :action => "playlist", :layout=> nil
-  end
-  private
-
-  def connect_to_player
-    @player = Player.new#("object_reload")
   end
 end
