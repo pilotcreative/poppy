@@ -1,0 +1,18 @@
+%h3
+	Results:
+	=@results.count
+-@results.each do |result|
+	%p
+		=link_to("Add", add_player_path(:uri => result.file), {:class => "button", :method => :put})
+		%span
+			=song_info(result)
+:javascript
+	$('.button').click(function() {
+		$(this).attr('data-method') ? method = $(this).attr('data-method') : method = "GET";
+		$.ajax({
+		  url: $(this).attr('href'),
+		  type: method,
+		  dataType: "script",
+		});
+		return false;
+	});

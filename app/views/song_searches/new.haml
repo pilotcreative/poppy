@@ -1,0 +1,16 @@
+=form_for(@search, {:url=>song_search_path, :html=>{:id=>"song_search"} } ) do |f|
+	=f.label :what, "Search:"
+	=f.text_field :what
+	=f.label :type, "Type:"
+	=f.select :type, @select_types
+	=f.submit "Search"
+#results
+:javascript
+	$("#tab-3-trigger span").html("Search");
+	$("#song_search").submit(function(){
+		$.post('/song_search',$(this).serialize(),
+		 function(data){
+			$("#results").html(data);
+		});
+		return false;
+	});

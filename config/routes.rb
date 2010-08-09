@@ -18,5 +18,6 @@ Poppy::Application.routes.draw do |map|
       delete :delete_song
     end
   end
+  resource :song_search, :only => [:new, :create]
   root :to => "players#index"
 end
