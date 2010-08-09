@@ -38,7 +38,7 @@ module Poppy
     # end
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.autoload_paths += [Rails.root.join("lib")]
+    # config.autoload_paths += [Rails.root.join("lib")]
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
