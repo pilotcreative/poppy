@@ -1,6 +1,6 @@
 class Player
   extend ActiveModel::Naming
-  delegate :stop, :start, :pause, :paused?, :next, :previous, :ping, :add_to_playlist, :playlist_destroy, :clear!, :rename_playlist, :create_playlist, :delete_song, :list_library, :to => :mpc
+  delegate :stop, :stopped?, :start, :pause, :paused?, :next, :previous, :ping, :add_to_playlist, :playlist_destroy, :clear!, :rename_playlist, :create_playlist, :delete_song, :list_library, :to => :mpc
   attr_reader :mpc
   @@instance = nil
 
