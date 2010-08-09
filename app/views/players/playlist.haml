@@ -1,8 +1,41 @@
-%h3 Current Playlist
-#playlist
-	-@songs.each_with_index do |song, index|
-		%p
-			=link_to 'Play', play_player_path(:song => index), {:class => 'button', :method => :put}
-			=song_info(song)
-:javascript
-	$("#tab-1-trigger span").html("Playlist");
+#library_wrapper
+	%h3 Current Playlist
+	%p
+		=link_to("Clear Playlist", clear_player_path, {:id=>"clear_playlist", :method=>:destroy})
+	#playlist
+		-@songs.each_with_index do |song, index|
+			%p
+				=link_to "Play", play_player_path(:song => index), {:class => "button", :method => :put}
+				=link_to "Delete", delete_song_player_path(:song => index), {:class => "delete_song", :method => :delete}
+				%span
+					=song_info(song)
+	:javascript
+		$("#tab-1-trigger span").html("Playlist");
+		$("#clear_playlist").click(function(){
+			$.ajax({
+			  url: $(this).attr('href'),
+			  type: "DELETE",
+			  dataType: "script",
+			});
+			return false;
+		});
+		$(".delete_song").click(function(){
+			$.ajax({
+				url: $(this).attr("href"),
+				type: "DELETE",
+				dataType: "script",
+				success: function(data) {
+				    $("#library_wrapper").replaceWith(data);
+				 }
+			});
+			return false;
+		});
+		$('.button').click(function() {
+			$(this).attr('data-method') ? method = $(this).attr('data-method') : method = "GET";
+			$.ajax({
+			  url: $(this).attr('href'),
+			  type: method,
+			  dataType: "script",
+			});
+			return false;
+		});

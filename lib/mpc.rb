@@ -156,8 +156,12 @@ class Mpc
   puts("rm \"#{name}\"")
  end
 
- def clear!(name)
-  puts("playlistclear \"#{name}\"")
+ def clear!(name = nil)
+   if name.nil?
+     puts("clear")
+   else
+     puts("playlistclear \"#{name}\"")
+   end
  end
 
  def get_paths
