@@ -14,6 +14,8 @@ Poppy::Application.routes.draw do |map|
       get :library
       get :playlist
       put :add
+      delete :clear
+      delete :delete_song
     end
   end
   root :to => "players#index"

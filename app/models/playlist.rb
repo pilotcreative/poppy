@@ -47,6 +47,10 @@ class Playlist
     Player.instance.clear!(@name)
   end
 
+  def self.clear!
+    Player.instance.clear!
+  end
+
   def destroy
     Player.instance.destroy_playlist(@name) if @exist
   end

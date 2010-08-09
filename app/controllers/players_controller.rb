@@ -62,12 +62,21 @@ class PlayersController < ApplicationController
 
   def add
     Player.instance.add_to_playlist(params[:uri])
-    render :nothing => true
+    @songs = Playlist.current_playlist_songs
   end
 
+  def clear
+    Playlist.clear!
+  end
+
+  def delete_song
+    Player.instance.delete_song(params[:song])
+    @songs = Playlist.current_playlist_songs
+    render :action => "playlist", :layout=> nil
+  end
   private
 
   def connect_to_player
-    @player = Player.new("object_reload")
+    @player = Player.new#("object_reload")
   end
 end

@@ -28,6 +28,11 @@ class Mpc
     puts("stop")
   end
 
+  def stopped?
+    status_hash = status
+    status_hash[:state] == "stop"
+  end
+
   def next
     puts("next")
   end
@@ -190,6 +195,10 @@ class Mpc
    root
  end
 
+ def delete_song(song)
+   puts("delete #{song.to_s}")
+ end
+
  private
 
   def puts(command)
@@ -248,10 +257,6 @@ class Mpc
       end
     end
     output
-  end
-
-  def delete_song(song)
-    puts("delete #{song}")
   end
 
   class Exception < StandardError  
