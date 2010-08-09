@@ -1,6 +1,6 @@
 %h2#current_song=song_info(@current_song)
 #buttons
-	-if @player.paused?
+	-if @player.paused? || @player.stopped?
 		=link_to 'Play', play_player_path, {:class=>'button', :id => 'play_pause', :method => :put}
 	-else
 		=link_to 'Pause', pause_player_path, {:class => 'button', :id => 'play_pause', :method=>:put}
@@ -14,7 +14,7 @@
 #tabs
 	%ul
 		%li
-			=link_to(content_tag(:span, "PLaylist"), playlist_player_path, {:id=>"tab-1-trigger"})
+			=link_to(content_tag(:span, "Playlist"), playlist_player_path, {:id=>"tab-1-trigger"})
 		%li
 			=link_to(content_tag(:span, "Library"), library_player_path, {:id=>"tab-2-trigger"})
 	#tabs-1
