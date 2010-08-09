@@ -1,5 +1,4 @@
 class PlayersController < ApplicationController
-  before_filter :connect_to_player
   def index
     @current_song = Song.current
   end
