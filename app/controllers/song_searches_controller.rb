@@ -10,7 +10,7 @@ class SongSearchesController < ApplicationController
       @results = @search.find
       render :layout=>nil
     else
-      render :action => "new"
+      render :text => "Error"
     end
   end
   private
