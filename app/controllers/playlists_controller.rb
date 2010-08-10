@@ -17,7 +17,7 @@ class PlaylistsController < ApplicationController
   def delete_song
     Player.instance.delete_song(params[:song])
     @songs = Playlist.current_playlist_songs
-    render :action => "playlist", :layout=> nil
+    render :action => "show", :layout=> nil
   end
 
 end
