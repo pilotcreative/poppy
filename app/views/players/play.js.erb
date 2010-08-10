@@ -1,2 +1,3 @@
 $('#play_pause').text('Pause');
 $('#play_pause').attr('href', '/player/pause');
+$('#current_song').text('<%= escape_javascript(song_info(@player.current_song))%>');
