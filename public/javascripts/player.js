@@ -53,7 +53,19 @@ $(document).ready(function() {
 		}
 	});
 	$('#playlist').sortable({
-		update: function(event,ui){
+		start: function(event, ui){
+			old_id = parseInt($(ui.item).find(".id").text());
+		},
+		stop: function(event, ui){
+			new_id = parseInt($(ui.item).find("~p").first().find(".id").text());
+			if(new_id > old_id){
+				--new_id;
+			}
+			$.post('/playlist/move_song',{
+			 from: old_id, to: new_id},
+			 function(data){
+				$("#library_wrapper").replaceWith(data);
+			});
 		}
 	});
 	ping_interval = setInterval('ping()',1000);

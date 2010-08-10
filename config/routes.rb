@@ -15,7 +15,8 @@ Poppy::Application.routes.draw do |map|
       get :library
     end
   end
-  resource :playlist, :only =>[:clear, :delete_song, :show] do
+  resource :playlist, :only =>[:move_song, :clear, :delete_song, :show] do
+    post :move_song
     delete :clear
     delete :delete_song
   end

@@ -43,4 +43,8 @@ class Player
   def list_playlist_info(name)
     @mpc.list_playlist_info(name).map{|attributes| Song.new(attributes)}
   end
+
+  def move_song(song, to)
+   @mpc.move_song(song, to)
+  end
 end

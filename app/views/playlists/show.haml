@@ -7,6 +7,8 @@
 			%p
 				=link_to "Play", play_player_path(:song => index), {:class => "button", :method => :put}
 				=link_to "Delete", delete_song_playlist_path(:song => index), {:class => "delete_song", :method => :delete}
+				%span.id
+					=index
 				%span
 					=song_info(song)
 	:javascript
