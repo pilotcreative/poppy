@@ -24,8 +24,7 @@ class Player
   end
 
   def current_song
-    @songs = @mpc.current_song.map{|attributes| Song.new(attributes)}
-    @songs.first
+    Song.new(@mpc.current_song)
   end
 
   def songs
@@ -46,5 +45,9 @@ class Player
 
   def move_song(song, to)
    @mpc.move_song(song, to)
+  end
+
+  def seek(pos, song = nil)
+    @mpc.seek(pos, song)
   end
 end
