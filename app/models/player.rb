@@ -24,7 +24,7 @@ class Player
   end
 
   def current_song
-    Song.new(@mpc.current_song)
+    Song.new(@mpc.current_song) unless @mpc.current_song.nil?
   end
 
   def songs
