@@ -56,6 +56,9 @@ h2{
 span.hidden{
 	color:#000;
 }
+#playlist span.id{
+	display:none;
+}
 #playlist p:hover span.hidden{
 	color: #ccc;
 }
