@@ -35,7 +35,13 @@ class Player
   end
 
   def list_playlists
-    @mpc.list_playlists.map{|key, value| Playlist.new(value, true)}
+    output = Array.new
+    @mpc.list_playlists.each do |playlist|
+      @p = Playlist.new(playlist[:playlist])
+      @p.exists = true
+      output << @p
+    end
+    output
   end
 
   def list_playlist_info(name)
