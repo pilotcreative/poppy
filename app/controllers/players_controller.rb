@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
   end
 
   def library
-    @library = Player.instance.list_library
+    @library = @player.list_library
   end
 
   def play
