@@ -4,7 +4,7 @@ module PlayersHelper
     if song.try(:title).blank? || song.try(:artist).blank?
       song.file
     else
-      song.artist + ' - ' + song.title
+      "#{song.artist} - #{song.title}"
     end 
   end
 

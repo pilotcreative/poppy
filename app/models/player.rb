@@ -5,14 +5,13 @@ class Player
   @@instance = nil
 
   def initialize(player = "default")
-    config = YAML.load_file("#{RAILS_ROOT}config/player.yml")
+    config = YAML.load_file(Rails.root.join("config", "player.yml"))
     @mpc = Mpc.new(config[player]["host"], config[player]["port"])
     @@instance = self
   end
 
   def self.instance
-    @@instance = new unless @@instance
-    @@instance
+    @@instance ||= new
   end
 
   def play(song = nil)
