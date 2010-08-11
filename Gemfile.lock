@@ -42,7 +42,8 @@ GEM
     mime-types (1.16)
     mocha (0.9.8)
       rake
-    mpc (0.3)
+    mpc (0.5)
+      rubytree
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.9)
@@ -77,7 +78,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   mocha
-  mpc (= 0.3)
+  mpc (= 0.5)
   rails (= 3.0.0.rc)
   rubytree
   sqlite3-ruby
