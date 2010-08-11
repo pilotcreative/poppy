@@ -1,57 +1,49 @@
 class Playlist
+  include ActiveModel::Validations
   extend ActiveModel::Naming
 
-  attr_accessor :name
-  @exist = false
-  def initialize(name, exist = false)
+  attr_accessor :name, :exists
+
+  validate do |playlist|
+    playlist.errors.add_to_base("Name can't be blank") if playlist.name.blank?
+    playlist.errors.add_to_base("Playlist aready exist") if playlist.exists?
+  end
+
+  def initialize(name = nil)
+    @exists = false
     @name = name
-    @original_name = name
-    @name_changed = false
-    @exist = exist
+    @player = Player.instance
   end
 
   def self.all
     Player.instance.list_playlists
   end
 
-  def self.current_playlist_songs
-    Player.instance.current_playlist_songs
+  def self.current
+    CurrentPlaylist.instance
   end
 
-  def self.songs
-    Player.instance.list_playlist_info(@name)
-  end
-
-  def name=(name)
-    @name = name
-    @name_changed = true
+  def persisted?
+    @exists
   end
 
   def save
-    if @name_changed && @exist
-      Player.instance.rename_playlist(@original_name, @name)
-      @original_name = @name
-    elsif !@exist
-      Player.instance.create_playlist(@name)
-    end
-    @name_changed = false
-    @exist = true
+    @player.create_playlist(@name) if valid?
   end
 
-  def add(path)
-    Player.instance.add_to_playlist(path, @name)
-    @exist = true
+  def exists?
+    @player.list_playlists.any?{|playlist| playlist.name == @name }
+  end
+
+  def songs
+    @player.list_playlist_info(@name) unless @name.blank?
   end
 
   def clear!
-    Player.instance.clear!(@name)
-  end
-
-  def self.clear!
-    Player.instance.clear!
+    @player.clear!(@name)
   end
 
   def destroy
-    Player.instance.destroy_playlist(@name) if @exist
+    @player.destroy_playlist(@name) if persisted?
   end
 end
