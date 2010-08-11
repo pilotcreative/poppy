@@ -4,7 +4,6 @@ class CurrentPlaylist
   extend ActiveModel::Naming
 
   attr_accessor :name
-
   validate do |name|
     errors.add_to_base("Name can't be blank") if @name.blank?
   end
@@ -15,6 +14,18 @@ class CurrentPlaylist
 
   def save
      Player.instance.create_playlist(@name) if valid?
+  end
+
+  def persisted?
+    true
+  end
+
+  def to_param
+    @name if persisted?
+  end
+
+  def to_key
+    [@name] if persisted?
   end
 
   def add(path)

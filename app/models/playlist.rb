@@ -27,6 +27,14 @@ class Playlist
     @exists
   end
 
+  def to_param
+    @name if persisted?
+  end
+
+  def to_key
+    [@name] if persisted?
+  end
+
   def save
     @player.create_playlist(@name) if valid?
   end

@@ -1,5 +1,6 @@
 class Song
   include ActiveModel::AttributeMethods
+  include ActiveModel::Validations
   extend ActiveModel::Naming
 
   attr_reader :attributes
@@ -38,6 +39,18 @@ class Song
 
   def self.current
     Player.instance.current_song
+  end
+
+  def persisted?
+    false
+  end
+
+  def to_param
+    self.file if persisted?
+  end
+
+  def to_key
+    [self.file] if persisted?
   end
 
   protected
