@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
 
   def show
-    @songs = Playlist.current_playlist_songs
+    @songs = Playlist.current.songs
   end
 
   def move_song
@@ -15,8 +15,8 @@ class PlaylistsController < ApplicationController
   end
 
   def delete_song
-    @songs = Playlist.current_playlist_songs
     @player.delete_song(params[:song])
+    @songs = Playlist.current.songs
     render :action => "show", :layout=> nil
   end
 

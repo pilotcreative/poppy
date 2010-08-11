@@ -53,7 +53,7 @@ class PlayersController < ApplicationController
   end
 
   def add
-    Player.instance.add_to_playlist(params[:uri])
-    @songs = Playlist.current_playlist_songs
+    @player.add_to_playlist(params[:uri])
+    @songs = Playlist.current.songs
   end
 end
