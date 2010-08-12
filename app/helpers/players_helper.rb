@@ -23,7 +23,7 @@ module PlayersHelper
         "".html_safe.tap do |leaf|
           leaf << content_tag(:div, "", :class=>"hitarea expandable-hitarea") if type == "expandable"
           leaf << node.name
-          leaf << link_to("+", add_player_path(:uri => node.content), {:class => "add_to_playlist", :method => :put})
+          leaf << link_to("Add", add_player_path(:uri => node.content), {:class => "add_to_playlist button", :method => :put})
           childrens = node.children
           if node.hasChildren?
             leaf << content_tag(:ul, :style => "display:none;") do
