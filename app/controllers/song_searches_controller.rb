@@ -2,6 +2,7 @@ class SongSearchesController < ApplicationController
   before_filter :get_select_types
   def new
     @search = SongSearch.new
+    render :layout => nil
   end
 
   def create

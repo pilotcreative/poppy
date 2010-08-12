@@ -5,6 +5,7 @@ class PlayersController < ApplicationController
 
   def library
     @library = @player.list_library
+    render :layout => nil
   end
 
   def play
