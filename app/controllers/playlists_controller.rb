@@ -12,7 +12,7 @@ class PlaylistsController < ApplicationController
   end
 
   def clear
-    CurrentPlaylist.clear!
+    Playlist.current.clear!
   end
 
   def delete_song
