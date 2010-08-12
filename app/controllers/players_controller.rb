@@ -39,12 +39,14 @@ class PlayersController < ApplicationController
 
   def volume_up
     @player.volume_up
-    render :nothing => true
+    # render :nothing => true
+    render :action => "change_volume", :layout => nil
   end
 
   def volume_down
     @player.volume_down
-    render :nothing => true
+    # render :nothing => true
+    render :action => "change_volume", :layout => nil
   end
 
   def ping
