@@ -10,10 +10,12 @@ class PlayersController < ApplicationController
 
   def play
     @player.play(params[:song])
+    render :nothing => true
   end
 
   def pause
     @player.pause
+    render :nothing => true
   end
 
   def previous
