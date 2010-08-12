@@ -3,16 +3,6 @@
 	=@results.count
 -@results.each do |result|
 	%p
-		=link_to("Add", add_player_path(:uri => result.file), {:class => "button", :method => :put})
+		=link_to("Add", add_player_path(:uri => result.file), {:class => "button add_to_playlist", :method => :put})
 		%span
 			=song_info(result)
-:javascript
-	$('.button').click(function() {
-		$(this).attr('data-method') ? method = $(this).attr('data-method') : method = "GET";
-		$.ajax({
-		  url: $(this).attr('href'),
-		  type: method,
-		  dataType: "script",
-		});
-		return false;
-	});

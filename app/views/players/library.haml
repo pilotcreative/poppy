@@ -4,12 +4,3 @@
 	$("#library").treeview({
 		prerendered: true
 	});
-	$(".add_to_playlist").click(function(){
-		$.ajax({
-		  url: $(this).attr('href'),
-		  type: "PUT",
-		  dataType: "script",
-		});
-		return false;
-	});
-	$("#tab-2-trigger span").html("Library");
