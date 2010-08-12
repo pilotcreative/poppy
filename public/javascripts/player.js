@@ -64,12 +64,15 @@ $(document).ready(function() {
 	});
 
 	$("body").delegate(".delete_song", "click", function(e){
+		song = $(this).parent().find("span.song_info").text();
+		$.jGrowl("Deleted song: <strong>" + song + "</strong>");
 		$.ajax({
 			url: $(this).attr("href"),
 			type: "DELETE",
 			dataType: "script",
 			success: function(data) {
 			    $("#library_wrapper").replaceWith(data);
+					buttons();
 			 }
 		});
 		e.preventDefault();
@@ -121,6 +124,7 @@ $(document).ready(function() {
 		song = $(this).parent().find("span.song_info").text();
 		$.jGrowl("Now Playing: <strong>" + song + "</strong>");
 	});
+
 });
 function buttons(){
 	$(".play").button({
