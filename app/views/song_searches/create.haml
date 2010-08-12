@@ -4,5 +4,5 @@
 -@results.each do |result|
 	%p
 		=link_to("Add", add_player_path(:uri => result.file), {:class => "button add_to_playlist", :method => :put})
-		%span
+		%span.song_info
 			=song_info(result)

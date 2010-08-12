@@ -107,6 +107,16 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	//ping_interval = setInterval('ping()',1000);
+
+	$("body").delegate("#clear_playlist", "click", function(e){
+		$.jGrowl("Playlist cleared.");
+	});
+
+	$("body").delegate(".add_to_playlist", "click", function(e){
+		song = $(this).parent().find("span.song_info").text();
+		$.jGrowl("Added <strong>" + song + "</strong> to playlist");
+	});
+
 });
 function buttons(){
 	$(".play").button({
