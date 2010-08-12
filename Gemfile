@@ -1,7 +1,7 @@
 source :rubygems
 
 gem "rails", "3.0.0.rc"
-gem "mpc", "0.6"
+gem "mpc", "0.7"
 gem "sqlite3-ruby", :require => "sqlite3"
 gem "haml"
 gem "rubytree", :require => "tree"
