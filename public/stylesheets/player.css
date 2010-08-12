@@ -7,12 +7,15 @@ h2{
 	text-align:center;
 	color: #fff;
 }
+h3{
+	color: #ff0084;
+}
 #buttons{
 	text-align:center;
 	width:480px;
 	margin:0 auto;
 }
-.button{
+/*.button{
 	background-color: #222222;
 	color: #aaaaaa !important;
 	text-decoration:none;
@@ -25,6 +28,7 @@ h2{
 	text-decoration:none;
 	padding: 2px;
 }
+*/
 #song_slider{
 	margin-top:30px;
 }
